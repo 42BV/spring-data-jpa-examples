@@ -2,9 +2,11 @@ package org.springframework.data.jpa.example.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -14,15 +16,21 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
  */
 @Entity
 @NamedQuery(name = "User.findByTheUsersName", query = "from User u where u.username = ?")
-public class User extends AbstractPersistable<Long> {
+public class User {
 
     private static final long serialVersionUID = -2952735933715107252L;
 
+    @Id @GeneratedValue
+    private Long id;
+    
     @Column(unique = true)
     private String username;
 
     private String firstname;
     private String lastname;
+    
+    private int age;
+    private LocalDate creationDate;
 
 
     public User() {
@@ -36,9 +44,13 @@ public class User extends AbstractPersistable<Long> {
      */
     public User(Long id) {
 
-        this.setId(id);
+        this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+    
 
     /**
      * Returns the username.
@@ -93,5 +105,68 @@ public class User extends AbstractPersistable<Long> {
     public void setLastname(String lastname) {
 
         this.lastname = lastname;
+    }
+    
+    
+    
+    public int getAge() {
+        return age;
+    }
+
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (null == obj) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!getClass().equals(obj.getClass())) {
+            return false;
+        }
+
+        User that = (User) obj;
+
+        return null == this.getId() ? false : this.getId().equals(that.getId());
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+
+        int hashCode = 17;
+
+        hashCode += null == getId() ? 0 : getId().hashCode() * 31;
+
+        return hashCode;
+    }
+    
+    @Override
+    public String toString() {
+        return "username";
     }
 }

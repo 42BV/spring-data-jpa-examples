@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.example.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 
@@ -15,7 +16,7 @@ import org.springframework.data.repository.CrudRepository;
  * 
  * @author Oliver Gierke
  */
-public interface UserRepository extends CrudRepository<User, Long>, UserRepositoryCustom {
+public interface UserRepository extends CrudRepository<User, Long>, UserRepositoryCustom, QueryDslPredicateExecutor<User> {
 
     /**
      * Find the user with the given username. This method will be translated

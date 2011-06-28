@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaQuery;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.example.domain.QUser;
 import org.springframework.data.jpa.example.domain.User;
+
+import com.mysema.query.jpa.impl.JPAQuery;
 
 
 /**
@@ -38,11 +39,9 @@ import org.springframework.data.jpa.example.domain.User;
  * @author Oliver Gierke
  */
 class UserRepositoryImpl implements UserRepositoryCustom {
-
+    
     @PersistenceContext
     private EntityManager em;
-
-
 
     /**
      * Configure the entity manager to be used.
@@ -50,7 +49,6 @@ class UserRepositoryImpl implements UserRepositoryCustom {
      * @param em the {@link EntityManager} to set.
      */
     public void setEntityManager(EntityManager em) {
-
         this.em = em;
     }
 
@@ -62,11 +60,18 @@ class UserRepositoryImpl implements UserRepositoryCustom {
      * myCustomBatchOperation()
      */
     public List<User> myCustomBatchOperation() {
-
-        CriteriaQuery<User> criteriaQuery =
-            em.getCriteriaBuilder().createQuery(User.class);
-
-        return em.createQuery(criteriaQuery).getResultList();
+        return em.createQuery("from User", User.class).getResultList();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findGoldMembers() {
+        QUser user = QUser.user;
+        JPAQuery query = new JPAQuery(em);
+        query.from(user).where(UserExpressions.goldMember());
+        return query.list(user);
     }
 
 }

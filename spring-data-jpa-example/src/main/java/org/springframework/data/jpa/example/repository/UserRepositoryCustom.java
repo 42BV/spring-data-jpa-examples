@@ -18,4 +18,7 @@ interface UserRepositoryCustom {
      * @return
      */
     List<User> myCustomBatchOperation();
+
+    List<User> findGoldMembers();
+    
 }
