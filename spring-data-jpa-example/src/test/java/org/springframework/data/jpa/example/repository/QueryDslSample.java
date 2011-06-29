@@ -55,4 +55,23 @@ public class QueryDslSample {
         Assert.assertThat(goldMembers, Matchers.hasItem(goldMember));
     }
     
+//    @Test
+//    public void testFindFromCollection() {
+//        User user = new User();
+//        user.setUsername("someusername");
+//
+//        Path<String> usernamePath = QUser.user.username;
+//        
+//        assertEquals("someusername", usernamePath.accept(new EvaluatingVisitor(), user));
+//        
+//        Matcher<User> hasUsernameLongerThanSix = new ExpressionMatcher<User>(QUser.user, QUser.user.username.length().gt(6));
+//        
+//        Assert.assertThat(user, hasUsernameLongerThanSix);
+//                
+//        User shortName = new User();
+//        shortName.setUsername("x");
+//        
+//        Assert.assertThat(shortName, Matchers.not(hasUsernameLongerThanSix));
+//    }
+    
 }

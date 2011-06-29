@@ -28,7 +28,6 @@ public interface UserRepository extends CrudRepository<User, Long>, UserReposito
      */
     User findByTheUsersName(String username);
 
-
     /**
      * Find all users with the given lastname. This method will be translated
      * into a query by constructing it directly from the method name as there is
@@ -37,7 +36,7 @@ public interface UserRepository extends CrudRepository<User, Long>, UserReposito
      * @param lastname
      * @return
      */
-    List<User> findByLastname(String lastname);
+    User findByLastname(String lastname);
 
 
     /**

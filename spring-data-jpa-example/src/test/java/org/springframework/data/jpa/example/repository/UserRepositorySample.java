@@ -1,6 +1,8 @@
 package org.springframework.data.jpa.example.repository;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -51,10 +53,10 @@ public class UserRepositorySample {
 
         user = repository.save(user);
 
-        List<User> users = repository.findByLastname("lastname");
+        User result = repository.findByLastname("lastname");
 
-        assertNotNull(users);
-        assertTrue(users.contains(user));
+        assertNotNull(result);
+        assertEquals(user, result);
 
         User reference = repository.findByTheUsersName("foobar");
         assertEquals(user, reference);
